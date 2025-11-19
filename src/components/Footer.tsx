@@ -1,77 +1,106 @@
+"use client"
+
 import Link from "next/link"
-import { Church, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube } from "lucide-react"
+import { Church, MapPin, Phone, Mail, Facebook, Instagram, Youtube } from "lucide-react"
 
 export default function Footer() {
   return (
-    <footer className="bg-muted mt-auto">
+    <footer className="bg-gradient-to-br from-primary via-primary to-sky text-primary-foreground">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Church Info */}
-          <div>
-            <div className="flex items-center gap-2 font-semibold text-xl mb-4">
-              <Church className="h-6 w-6" />
-              <span>Primera Iglesia Bautista El Remanente</span>
-            </div>
-            <p className="text-sm text-muted-foreground mb-4">
-              Una comunidad acogedora de fe, esperanza y amor.
+        <div className="grid md:grid-cols-4 gap-8 mb-8">
+          {/* Logo y Descripción */}
+          <div className="md:col-span-2">
+            <Link href="/" className="flex items-center gap-3 mb-4">
+              <div className="flex items-center justify-center w-12 h-12 rounded-full bg-white/10 backdrop-blur">
+                <Church className="h-6 w-6" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xl leading-tight font-bold">Iglesia Bautista</span>
+                <span className="text-sm leading-tight text-gold">del Remanente</span>
+              </div>
+            </Link>
+            <p className="text-primary-foreground/80 mb-4 max-w-md">
+              Firmes en la fe, creciendo en Cristo. Una comunidad dedicada a iluminar Catarina con el amor de Cristo.
             </p>
-            <div className="flex gap-4">
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+            <div className="flex gap-3">
+              <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors flex items-center justify-center">
                 <Facebook className="h-5 w-5" />
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Twitter className="h-5 w-5" />
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              </a>
+              <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors flex items-center justify-center">
                 <Instagram className="h-5 w-5" />
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              </a>
+              <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors flex items-center justify-center">
                 <Youtube className="h-5 w-5" />
-              </Link>
+              </a>
             </div>
           </div>
 
-          {/* Contact Info */}
+          {/* Enlaces Rápidos */}
           <div>
-            <h3 className="font-semibold text-lg mb-4">Contacto</h3>
-            <div className="space-y-3 text-sm text-muted-foreground">
-              <div className="flex items-start gap-2">
-                <MapPin className="h-4 w-4 mt-0.5" />
-                <span>Calle Principal 123<br />Ciudad, Estado 12345</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="h-4 w-4" />
-                <span>(555) 123-4567</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4" />
-                <span>info@elremanente.org</span>
-              </div>
-            </div>
+            <h3 className="font-bold text-lg mb-4">Enlaces Rápidos</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="#sobre-nosotros" className="text-primary-foreground/80 hover:text-white transition-colors">
+                  Quiénes Somos
+                </Link>
+              </li>
+              <li>
+                <Link href="#vision-mision" className="text-primary-foreground/80 hover:text-white transition-colors">
+                  Visión y Misión
+                </Link>
+              </li>
+              <li>
+                <Link href="#mensajes" className="text-primary-foreground/80 hover:text-white transition-colors">
+                  Mensajes
+                </Link>
+              </li>
+              <li>
+                <Link href="#ministerios" className="text-primary-foreground/80 hover:text-white transition-colors">
+                  Ministerios
+                </Link>
+              </li>
+              <li>
+                <Link href="#contacto" className="text-primary-foreground/80 hover:text-white transition-colors">
+                  Contacto
+                </Link>
+              </li>
+            </ul>
           </div>
 
-          {/* Service Times */}
+          {/* Información de Contacto */}
           <div>
-            <h3 className="font-semibold text-lg mb-4">Horarios de Servicio</h3>
-            <div className="space-y-2 text-sm text-muted-foreground">
-              <div>
-                <p className="font-medium text-foreground">Culto Dominical</p>
-                <p>9:00 AM & 11:00 AM</p>
-              </div>
-              <div>
-                <p className="font-medium text-foreground">Estudio Bíblico Miércoles</p>
-                <p>7:00 PM</p>
-              </div>
-              <div>
-                <p className="font-medium text-foreground">Grupo de Jóvenes</p>
-                <p>Viernes 6:00 PM</p>
-              </div>
+            <h3 className="font-bold text-lg mb-4">Contacto</h3>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-2 text-primary-foreground/80">
+                <MapPin className="h-5 w-5 mt-0.5 flex-shrink-0" />
+                <span>Catarina, Masaya, Nicaragua</span>
+              </li>
+              <li className="flex items-start gap-2 text-primary-foreground/80">
+                <Phone className="h-5 w-5 mt-0.5 flex-shrink-0" />
+                <span>+505 1234-5678</span>
+              </li>
+              <li className="flex items-start gap-2 text-primary-foreground/80">
+                <Mail className="h-5 w-5 mt-0.5 flex-shrink-0" />
+                <span>info@ibdelremanente.org</span>
+              </li>
+            </ul>
+            
+            <div className="mt-6 p-4 bg-white/10 backdrop-blur rounded-lg">
+              <p className="font-semibold mb-1">Horarios de Culto</p>
+              <p className="text-sm text-primary-foreground/80">Domingos: 9:00 AM y 11:00 AM</p>
+              <p className="text-sm text-primary-foreground/80">Miércoles: 7:00 PM</p>
             </div>
           </div>
         </div>
 
-        <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Primera Iglesia Bautista El Remanente. Todos los derechos reservados.</p>
+        {/* Copyright */}
+        <div className="border-t border-white/10 pt-8 text-center">
+          <p className="text-primary-foreground/60 text-sm">
+            © {new Date().getFullYear()} Iglesia Bautista del Remanente. Todos los derechos reservados.
+          </p>
+          <p className="text-primary-foreground/60 text-sm mt-2">
+            "Porque donde están dos o tres congregados en mi nombre, allí estoy yo en medio de ellos." - Mateo 18:20
+          </p>
         </div>
       </div>
     </footer>
