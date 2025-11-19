@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Navigation from "@/components/Navigation"
@@ -65,8 +66,14 @@ export default function Home() {
         
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="inline-block mb-6 animate-fade-in-up">
-            <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-primary to-sky flex items-center justify-center shadow-2xl">
-              <div className="text-4xl text-primary-foreground">✟</div>
+            <div className="relative w-32 h-32 mx-auto">
+              <Image
+                src="/logo-iglesia.png"
+                alt="Logo Iglesia Bautista del Remanente"
+                fill
+                className="object-contain drop-shadow-2xl"
+                priority
+              />
             </div>
           </div>
           
