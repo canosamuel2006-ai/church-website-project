@@ -7,9 +7,10 @@ import Navigation from "@/components/Navigation"
 import Footer from "@/components/Footer"
 import VideoSection from "@/components/VideoSection"
 import LiveStreamSection from "@/components/LiveStreamSection"
-import { Heart, Users, Handshake, Shield, BookOpen, Sparkles, HandHeart, Youtube, MapPin, Phone, Mail, Clock, Facebook, Instagram, Send } from "lucide-react"
+import { Heart, Users, Handshake, Shield, BookOpen, Sparkles, HandHeart, Youtube, MapPin, Phone, Mail, Clock, Facebook, Instagram, Send, Map, DollarSign } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 
 export default function Home() {
   const valores = [
@@ -24,35 +25,77 @@ export default function Home() {
 
   const ministerios = [
     {
-      title: "Culto Dominical",
-      schedule: "Domingos 9:00 AM y 11:00 AM",
-      description: "Adoración, alabanza y mensaje de la Palabra"
+      title: "Ensayo Ministerio de Alabanza",
+      schedule: "Lunes y Jueves 6:30 PM - 9:00 PM",
+      description: "Práctica y preparación del equipo de alabanza para los servicios",
+      services: ["Ensayos de música y canto", "Preparación de repertorio", "Adoración corporativa"],
+      day: "Lunes/Jueves"
     },
     {
-      title: "Estudio Bíblico",
-      schedule: "Miércoles 7:00 PM",
-      description: "Profundizamos en las Escrituras juntos"
+      title: "Ministerio de Mujeres",
+      schedule: "Martes 7:00 PM - 8:00 PM",
+      description: "Tiempo de compañerismo y edificación para mujeres",
+      services: ["Estudios bíblicos para mujeres", "Grupos de apoyo y consejería", "Eventos de compañerismo"],
+      day: "Martes"
+    },
+    {
+      title: "Ayuno y Oración",
+      schedule: "Miércoles 11:00 AM - 1:00 PM",
+      description: "Día dedicado al ayuno corporativo y oración intercesora",
+      services: ["Ayuno congregacional", "Intercesión por la iglesia", "Oración por necesidades comunitarias"],
+      day: "Miércoles"
+    },
+    {
+      title: "PGM Grupos Pequeños Multiplicadores",
+      schedule: "Jueves 7:00 PM - 8:00 PM",
+      description: "Reuniones en diferentes sectores de la comunidad",
+      services: ["Grupos en sectores residenciales", "Estudio bíblico semanal", "Compañerismo en comunidad"],
+      day: "Jueves",
+      hasMap: true
+    },
+    {
+      title: "Noche de Oración",
+      schedule: "Viernes 6:00 PM - 8:00 PM",
+      description: "Reunión de oración e intercesión",
+      services: ["Oración intercesora", "Alabanza y adoración", "Peticiones especiales"],
+      day: "Viernes"
     },
     {
       title: "Ministerio de Jóvenes",
-      schedule: "Viernes 6:00 PM",
-      description: "Actividades y enseñanza para adolescentes"
+      schedule: "Sábado 6:00 PM - 8:00 PM",
+      description: "Actividades y enseñanza para jóvenes",
+      services: ["Estudios bíblicos juveniles", "Actividades recreativas", "Discipulado para jóvenes"],
+      day: "Sábado"
     },
     {
       title: "Escuela Dominical",
-      schedule: "Domingos 10:00 AM",
-      description: "Educación bíblica para todas las edades"
+      schedule: "Domingo 8:00 AM - 10:00 AM",
+      description: "Educación bíblica para todas las edades",
+      services: ["Clases por edades", "Enseñanza bíblica sistemática", "Aplicación práctica"],
+      day: "Domingo"
     },
     {
-      title: "Grupos de Oración",
-      schedule: "Martes 6:00 PM",
-      description: "Intercesión y comunión en oración"
+      title: "Escuela de Jóvenes y Adultos",
+      schedule: "Domingo 11:00 AM - 12:30 PM",
+      description: "Enseñanza bíblica especializada para jóvenes y adultos",
+      services: ["Estudio profundo de la Palabra", "Teología práctica", "Formación de discípulos"],
+      day: "Domingo"
     },
     {
-      title: "Ministerio de Niños",
-      schedule: "Domingos durante el culto",
-      description: "Enseñanza bíblica adaptada para niños"
+      title: "Culto Evangelístico",
+      schedule: "Domingo 5:00 PM - 8:30 PM",
+      description: "Servicio de adoración y predicación evangelística",
+      services: ["Predicación del evangelio", "Adoración congregacional", "Altar de oración y salvación"],
+      day: "Domingo"
     }
+  ]
+
+  const pgmSectores = [
+    { nombre: "Sector Norte", lider: "Familia García", direccion: "Bo. San José" },
+    { nombre: "Sector Sur", lider: "Familia Martínez", direccion: "Bo. El Rosario" },
+    { nombre: "Sector Este", lider: "Familia López", direccion: "Bo. San Miguel" },
+    { nombre: "Sector Oeste", lider: "Familia Rodríguez", direccion: "Bo. La Esperanza" },
+    { nombre: "Sector Centro", lider: "Familia Hernández", direccion: "Centro de Catarina" }
   ]
 
   return (
@@ -269,12 +312,74 @@ export default function Home() {
                     <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary/10 to-sky/10 flex items-center justify-center flex-shrink-0">
                       <Clock className="h-6 w-6 text-primary" />
                     </div>
-                    <div>
+                    <div className="flex-1">
                       <h3 className="font-bold text-xl mb-1">{ministerio.title}</h3>
                       <p className="text-sm text-primary font-semibold">{ministerio.schedule}</p>
                     </div>
                   </div>
-                  <p className="text-muted-foreground">{ministerio.description}</p>
+                  <p className="text-muted-foreground mb-4">{ministerio.description}</p>
+                  
+                  {/* Servicios del Ministerio */}
+                  <div className="space-y-2 mb-4 pt-4 border-t">
+                    <p className="text-sm font-semibold text-sky mb-2">Servicios:</p>
+                    <ul className="space-y-1">
+                      {ministerio.services?.map((service, idx) => (
+                        <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                          <span className="text-primary mt-1">•</span>
+                          <span>{service}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {ministerio.hasMap && (
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="outline" className="w-full mt-2">
+                          <Map className="h-4 w-4 mr-2" />
+                          Ver Mapa de Sectores
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-3xl">
+                        <DialogHeader>
+                          <DialogTitle>Sectores PGM - Grupos Pequeños Multiplicadores</DialogTitle>
+                          <DialogDescription>
+                            Reuniones distribuidas por sectores en Catarina cada jueves de 7:00 PM a 8:00 PM
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="space-y-4 mt-4">
+                          <div className="grid md:grid-cols-2 gap-4">
+                            {pgmSectores.map((sector, idx) => (
+                              <Card key={idx} className="border-2 border-primary/20">
+                                <CardContent className="pt-4">
+                                  <div className="flex items-start gap-3">
+                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-sky/20 flex items-center justify-center flex-shrink-0">
+                                      <MapPin className="h-5 w-5 text-primary" />
+                                    </div>
+                                    <div>
+                                      <h4 className="font-bold text-primary">{sector.nombre}</h4>
+                                      <p className="text-sm text-muted-foreground mt-1">
+                                        <span className="font-semibold">Líder:</span> {sector.lider}
+                                      </p>
+                                      <p className="text-sm text-muted-foreground">
+                                        <span className="font-semibold">Ubicación:</span> {sector.direccion}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </CardContent>
+                              </Card>
+                            ))}
+                          </div>
+                          <div className="bg-muted/50 p-4 rounded-lg">
+                            <p className="text-sm text-muted-foreground text-center">
+                              <strong>Nota:</strong> Para conocer la dirección exacta del grupo en tu sector, 
+                              comunícate con nosotros o pregunta en la iglesia el próximo domingo.
+                            </p>
+                          </div>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  )}
                 </CardContent>
               </Card>
             ))}
@@ -282,20 +387,109 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contacto */}
-      <section id="contacto" className="py-20 bg-gradient-to-br from-muted/30 to-accent/10">
+      {/* Donación y Manos de Amor */}
+      <section id="donacion" className="py-20 bg-gradient-to-br from-muted/30 to-accent/10">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-gold bg-clip-text text-transparent">
+              Donación y Manos de Amor
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Tu generosidad transforma vidas y fortalece el ministerio de nuestra iglesia
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
+            {/* Tarjeta de Donación */}
+            <Card className="border-2 border-primary/20 shadow-xl">
+              <CardContent className="p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary/20 to-sky/20 flex items-center justify-center">
+                    <DollarSign className="h-7 w-7 text-primary" />
+                  </div>
+                  <h3 className="text-2xl font-bold">Donaciones</h3>
+                </div>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  Tus ofrendas y diezmos sostienen la obra del Señor, permitiendo que la iglesia continúe 
+                  predicando el evangelio, sirviendo a la comunidad y glorificando el nombre de Dios.
+                </p>
+                <div className="space-y-4 mb-6">
+                  <div className="p-4 bg-gradient-to-r from-primary/5 to-sky/5 rounded-lg">
+                    <h4 className="font-semibold mb-2 text-primary">Formas de Donar:</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Durante los servicios dominicales</li>
+                      <li>• Transferencia bancaria</li>
+                      <li>• En línea a través de nuestra página web</li>
+                      <li>• En la oficina de la iglesia</li>
+                    </ul>
+                  </div>
+                </div>
+                <Button className="w-full bg-gradient-to-r from-primary to-sky" size="lg">
+                  <DollarSign className="h-5 w-5 mr-2" />
+                  Donar Ahora
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Tarjeta de Manos de Amor */}
+            <Card className="border-2 border-gold/20 shadow-xl">
+              <CardContent className="p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-gold/20 to-primary/20 flex items-center justify-center">
+                    <HandHeart className="h-7 w-7 text-gold" />
+                  </div>
+                  <h3 className="text-2xl font-bold">Manos de Amor</h3>
+                </div>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  Ministerio dedicado a servir a los necesitados en nuestra comunidad a través de actos 
+                  concretos de amor, compartiendo el evangelio mediante acciones prácticas de servicio.
+                </p>
+                <div className="space-y-4 mb-6">
+                  <div className="p-4 bg-gradient-to-r from-gold/5 to-accent/5 rounded-lg">
+                    <h4 className="font-semibold mb-2 text-gold">Cómo Participar:</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Donación de alimentos y ropa</li>
+                      <li>• Voluntariado en eventos comunitarios</li>
+                      <li>• Apoyo a familias necesitadas</li>
+                      <li>• Visitas a enfermos y ancianos</li>
+                    </ul>
+                  </div>
+                </div>
+                <Button className="w-full bg-gradient-to-r from-gold to-primary" size="lg" variant="outline">
+                  <Heart className="h-5 w-5 mr-2" />
+                  Unirme al Ministerio
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Versículo Bíblico */}
+          <Card className="max-w-3xl mx-auto border-2 bg-white/80 backdrop-blur">
+            <CardContent className="p-8 text-center">
+              <p className="text-lg md:text-xl italic text-muted-foreground mb-4">
+                "Cada uno dé como propuso en su corazón: no con tristeza, ni por necesidad, 
+                porque Dios ama al dador alegre."
+              </p>
+              <p className="font-bold text-primary">2 Corintios 9:7</p>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Contáctanos */}
+      <section id="contacto" className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-sky bg-clip-text text-transparent">
               Contáctanos
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Nos encantaría saber de ti. Escríbenos o visítanos
+              Envíanos un mensaje o petición de oración
             </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-            {/* Formulario */}
+            {/* Formulario de Contacto */}
             <Card className="border-2 shadow-xl">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold mb-6">Envíanos un Mensaje</h3>
@@ -326,23 +520,6 @@ export default function Home() {
 
             {/* Información de Contacto */}
             <div className="space-y-6">
-              <Card className="border-2 hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary/10 to-sky/10 flex items-center justify-center flex-shrink-0">
-                      <MapPin className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg mb-2">Dirección</h3>
-                      <p className="text-muted-foreground">
-                        Catarina, Masaya<br />
-                        Nicaragua
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
               <Card className="border-2 hover:shadow-lg transition-shadow">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
@@ -408,6 +585,97 @@ export default function Home() {
                       <Youtube className="h-6 w-6" />
                     </Button>
                   </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Visítanos */}
+      <section id="visitanos" className="py-20 bg-gradient-to-br from-muted/30 to-accent/10">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-gold bg-clip-text text-transparent">
+              Visítanos
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Te esperamos con los brazos abiertos en nuestra iglesia
+            </p>
+          </div>
+
+          <div className="max-w-5xl mx-auto space-y-8">
+            {/* Dirección */}
+            <Card className="border-2 shadow-xl">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-primary/10 to-sky/10 flex items-center justify-center flex-shrink-0">
+                    <MapPin className="h-8 w-8 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-2xl mb-2">Nuestra Ubicación</h3>
+                    <p className="text-lg text-muted-foreground">
+                      Catarina, Masaya<br />
+                      Nicaragua
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Mapa de Google */}
+            <Card className="border-2 shadow-xl overflow-hidden">
+              <CardContent className="p-0">
+                <div className="aspect-video w-full">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31036.927437891468!2d-86.07989932355955!3d11.913632294564515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f718c5fb5e8e8e1%3A0x4d7c7c5fb5e8e8e1!2sCatarina%2C%20Nicaragua!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Ubicación Iglesia Bautista del Remanente"
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Información adicional */}
+            <div className="grid md:grid-cols-3 gap-6">
+              <Card className="border-2 text-center">
+                <CardContent className="pt-8">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary/20 to-sky/20 flex items-center justify-center">
+                    <Heart className="h-8 w-8 text-primary" />
+                  </div>
+                  <h3 className="font-bold text-xl mb-2">Todos Bienvenidos</h3>
+                  <p className="text-muted-foreground">
+                    Ven como eres, te recibiremos con amor
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 text-center">
+                <CardContent className="pt-8">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-sky/20 to-gold/20 flex items-center justify-center">
+                    <Clock className="h-8 w-8 text-sky" />
+                  </div>
+                  <h3 className="font-bold text-xl mb-2">Llega Temprano</h3>
+                  <p className="text-muted-foreground">
+                    15 minutos antes para conocernos mejor
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 text-center">
+                <CardContent className="pt-8">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-gold/20 to-primary/20 flex items-center justify-center">
+                    <Users className="h-8 w-8 text-gold" />
+                  </div>
+                  <h3 className="font-bold text-xl mb-2">Familias</h3>
+                  <p className="text-muted-foreground">
+                    Programas para todas las edades
+                  </p>
                 </CardContent>
               </Card>
             </div>
