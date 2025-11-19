@@ -4,7 +4,6 @@ import Link from "next/link"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
-import Image from "next/image"
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -23,15 +22,6 @@ export default function Navigation() {
       <div className="container mx-auto px-4">
         <div className="flex h-20 items-center justify-between">
           <Link href="/" className="flex items-center gap-3 font-semibold">
-            <div className="relative w-14 h-14 flex-shrink-0">
-              <Image
-                src="/logo-iglesia.png"
-                alt="Logo Iglesia Bautista del Remanente"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
             <div className="flex flex-col">
               <span className="text-lg leading-tight text-primary font-bold">Iglesia Bautista</span>
               <span className="text-sm leading-tight text-gold font-semibold">del Remanente</span>

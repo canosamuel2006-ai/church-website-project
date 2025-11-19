@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Navigation from "@/components/Navigation"
@@ -65,18 +64,6 @@ export default function Home() {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djItaDJ2LTJoLTJ6bTAgNGgtMnYyaDJ2LTJ6bTAtOGgydi0yaC0ydjJ6bTQgNHYtMmgydjJoLTJ6bS00IDB2Mmgydi0yaC0yem0wLTR2LTJoLTJ2Mmgyem00IDB2Mmgydi0yaC0yem0yLTJ2LTJoLTJ2Mmgyem0wIDR2Mmgydi0yaC0yem0wIDRoLTJ2Mmgydi0yem00LTR2LTJoMnYyaC0yem0wIDR2Mmgydi0yaC0yem0wLThoMnYtMmgtMnYyem0wIDRoLTJ2Mmgydi0yeiIvPjwvZz48L2c+PC9zdmc+')] opacity-40" />
         
         <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="inline-block mb-6 animate-fade-in-up">
-            <div className="relative w-32 h-32 mx-auto">
-              <Image
-                src="/logo-iglesia.png"
-                alt="Logo Iglesia Bautista del Remanente"
-                fill
-                className="object-contain drop-shadow-2xl"
-                priority
-              />
-            </div>
-          </div>
-          
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 animate-fade-in-up animation-delay-100">
             <span className="bg-gradient-to-r from-primary via-sky to-gold bg-clip-text text-transparent">
               Iglesia Bautista
