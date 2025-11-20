@@ -7,7 +7,7 @@ import Navigation from "@/components/Navigation"
 import Footer from "@/components/Footer"
 import VideoSection from "@/components/VideoSection"
 import LiveStreamSection from "@/components/LiveStreamSection"
-import { Heart, Users, Handshake, Shield, BookOpen, Sparkles, HandHeart, Youtube, MapPin, Phone, Mail, Clock, Facebook, Instagram, Send, Map, DollarSign, ArrowLeft, Home } from "lucide-react"
+import { Heart, Users, Handshake, Shield, BookOpen, Sparkles, HandHeart, Youtube, MapPin, Phone, Mail, Clock, Facebook, Instagram, Send, Map, DollarSign, ArrowLeft, Home as HomeIcon } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
 
-export default function Home() {
+export default function HomePage() {
   const [lights, setLights] = useState<Array<{ id: number; x: number; y: number }>>([])
   const [isPgmDialogOpen, setIsPgmDialogOpen] = useState(false)
   const [donationDialogOpen, setDonationDialogOpen] = useState<string | null>(null)
@@ -546,7 +546,7 @@ export default function Home() {
               <CardContent className="p-8">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-14 h-14 rounded-full bg-gradient-to-br from-gold/20 to-accent/20 flex items-center justify-center">
-                    <Home className="h-7 w-7 text-gold" />
+                    <HomeIcon className="h-7 w-7 text-gold" />
                   </div>
                   <h3 className="text-2xl font-bold">Asilo de Ancianos</h3>
                 </div>
