@@ -11,8 +11,30 @@ import { Heart, Users, Handshake, Shield, BookOpen, Sparkles, HandHeart, Youtube
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { useEffect, useState } from "react"
 
 export default function Home() {
+  const [lights, setLights] = useState<Array<{ id: number; x: number; y: number }>>([])
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      const newLight = {
+        id: Date.now(),
+        x: e.clientX,
+        y: e.clientY
+      }
+      setLights(prev => [...prev, newLight])
+      
+      // Remove light after animation completes
+      setTimeout(() => {
+        setLights(prev => prev.filter(light => light.id !== newLight.id))
+      }, 1000)
+    }
+
+    document.addEventListener('click', handleClick)
+    return () => document.removeEventListener('click', handleClick)
+  }, [])
+
   const valores = [
     { icon: Heart, title: "Amor", description: "Amamos a Dios y a nuestro prójimo como a nosotros mismos" },
     { icon: Users, title: "Unidad", description: "Unidos en Cristo, formamos una familia espiritual" },
@@ -91,15 +113,39 @@ export default function Home() {
   ]
 
   const pgmSectores = [
-    { nombre: "Sector Norte", lider: "Familia García", direccion: "Bo. San José" },
-    { nombre: "Sector Sur", lider: "Familia Martínez", direccion: "Bo. El Rosario" },
-    { nombre: "Sector Este", lider: "Familia López", direccion: "Bo. San Miguel" },
-    { nombre: "Sector Oeste", lider: "Familia Rodríguez", direccion: "Bo. La Esperanza" },
-    { nombre: "Sector Centro", lider: "Familia Hernández", direccion: "Centro de Catarina" }
+    { nombre: "Mirador de Catarina", lider: "Familia García", direccion: "Mirador de Catarina" },
+    { nombre: "Zona 4", lider: "Familia Martínez", direccion: "Zona 4, Catarina" },
+    { nombre: "Niquinohomo", lider: "Familia López", direccion: "Niquinohomo" },
+    { nombre: "San Juan de Oriente", lider: "Familia Rodríguez", direccion: "San Juan de Oriente" },
+    { nombre: "Entrada de Catarina", lider: "Familia Hernández", direccion: "Entrada de Catarina" }
   ]
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen relative">
+      {/* Interactive Light Effects */}
+      {lights.map(light => (
+        <div
+          key={light.id}
+          className="fixed pointer-events-none z-50"
+          style={{
+            left: light.x,
+            top: light.y,
+            transform: 'translate(-50%, -50%)'
+          }}
+        >
+          <div className="relative">
+            {/* Main light burst */}
+            <div className="absolute inset-0 w-20 h-20 bg-gradient-radial from-primary/60 via-sky/40 to-transparent rounded-full animate-ping opacity-75" />
+            <div className="absolute inset-0 w-16 h-16 bg-gradient-radial from-gold/70 via-primary/50 to-transparent rounded-full animate-pulse" />
+            {/* Sparkles */}
+            <div className="absolute top-0 left-0 w-2 h-2 bg-gold rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+            <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-sky rounded-full animate-bounce" style={{ animationDelay: '100ms' }} />
+            <div className="absolute bottom-2 left-2 w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '200ms' }} />
+            <div className="absolute bottom-0 right-0 w-2 h-2 bg-gold rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+          </div>
+        </div>
+      ))}
+
       <Navigation />
       
       {/* Hero Section */}
