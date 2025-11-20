@@ -7,14 +7,18 @@ import Navigation from "@/components/Navigation"
 import Footer from "@/components/Footer"
 import VideoSection from "@/components/VideoSection"
 import LiveStreamSection from "@/components/LiveStreamSection"
-import { Heart, Users, Handshake, Shield, BookOpen, Sparkles, HandHeart, Youtube, MapPin, Phone, Mail, Clock, Facebook, Instagram, Send, Map, DollarSign } from "lucide-react"
+import { Heart, Users, Handshake, Shield, BookOpen, Sparkles, HandHeart, Youtube, MapPin, Phone, Mail, Clock, Facebook, Instagram, Send, Map, DollarSign, ArrowLeft, Home } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Label } from "@/components/ui/label"
 import { useEffect, useState } from "react"
+import { toast } from "sonner"
 
 export default function Home() {
   const [lights, setLights] = useState<Array<{ id: number; x: number; y: number }>>([])
+  const [isPgmDialogOpen, setIsPgmDialogOpen] = useState(false)
+  const [donationDialogOpen, setDonationDialogOpen] = useState<string | null>(null)
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -34,6 +38,14 @@ export default function Home() {
     document.addEventListener('click', handleClick)
     return () => document.removeEventListener('click', handleClick)
   }, [])
+
+  const handleDonationSubmit = (e: React.FormEvent, type: string) => {
+    e.preventDefault()
+    toast.success("¡Gracias por tu generosidad!", {
+      description: "Tu donación está siendo procesada"
+    })
+    setDonationDialogOpen(null)
+  }
 
   const valores = [
     { icon: Heart, title: "Amor", description: "Amamos a Dios y a nuestro prójimo como a nosotros mismos" },
@@ -379,7 +391,7 @@ export default function Home() {
                   </div>
 
                   {ministerio.hasMap && (
-                    <Dialog>
+                    <Dialog open={isPgmDialogOpen} onOpenChange={setIsPgmDialogOpen}>
                       <DialogTrigger asChild>
                         <Button variant="outline" className="w-full mt-2">
                           <Map className="h-4 w-4 mr-2" />
@@ -387,9 +399,22 @@ export default function Home() {
                         </Button>
                       </DialogTrigger>
                       <DialogContent className="max-w-3xl">
-                        <DialogHeader>
-                          <DialogTitle>Sectores PGM - Grupos Pequeños Multiplicadores</DialogTitle>
-                          <DialogDescription>
+                        <button
+                          onClick={() => setIsPgmDialogOpen(false)}
+                          className="absolute left-6 top-6 z-50 group flex items-center gap-2 text-muted-foreground hover:text-primary transition-all duration-300"
+                        >
+                          <div className="relative">
+                            <div className="absolute inset-0 bg-primary/10 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            <ArrowLeft className="h-5 w-5 relative z-10 transform group-hover:-translate-x-1 transition-transform duration-300" />
+                          </div>
+                          <span className="text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            Volver
+                          </span>
+                        </button>
+
+                        <DialogHeader className="pt-2">
+                          <DialogTitle className="text-center">Sectores PGM - Grupos Pequeños Multiplicadores</DialogTitle>
+                          <DialogDescription className="text-center">
                             Reuniones distribuidas por sectores en Catarina cada jueves de 7:00 PM a 8:00 PM
                           </DialogDescription>
                         </DialogHeader>
@@ -445,78 +470,229 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
-            {/* Tarjeta de Donación */}
-            <Card className="border-2 border-primary/20 shadow-xl">
+          <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            {/* Tarjeta de Donación para la Obra */}
+            <Card className="border-2 border-primary/20 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
               <CardContent className="p-8">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary/20 to-sky/20 flex items-center justify-center">
                     <DollarSign className="h-7 w-7 text-primary" />
                   </div>
-                  <h3 className="text-2xl font-bold">Donaciones</h3>
+                  <h3 className="text-2xl font-bold">Donaciones para la Obra</h3>
                 </div>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Tus ofrendas y diezmos sostienen la obra del Señor, permitiendo que la iglesia continúe 
-                  predicando el evangelio, sirviendo a la comunidad y glorificando el nombre de Dios.
+                  Apoya el crecimiento y desarrollo de nuestra iglesia. Cada ofrenda fortalece la obra del Señor.
                 </p>
-                <div className="space-y-4 mb-6">
-                  <div className="p-4 bg-gradient-to-r from-primary/5 to-sky/5 rounded-lg">
-                    <h4 className="font-semibold mb-2 text-primary">Formas de Donar:</h4>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
-                      <li>• Durante los servicios dominicales</li>
-                      <li>• Transferencia bancaria</li>
-                      <li>• En línea a través de nuestra página web</li>
-                      <li>• En la oficina de la iglesia</li>
-                    </ul>
+                
+                <Dialog open={donationDialogOpen === "obra"} onOpenChange={(open) => setDonationDialogOpen(open ? "obra" : null)}>
+                  <DialogTrigger asChild>
+                    <Button className="w-full bg-gradient-to-r from-primary to-sky" size="lg">
+                      <DollarSign className="h-5 w-5 mr-2" />
+                      Donar Ahora
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                    <DialogHeader>
+                      <DialogTitle className="text-2xl text-center">Donación para la Obra</DialogTitle>
+                      <DialogDescription className="text-center">
+                        Tu generosidad hace posible la expansión del Reino de Dios
+                      </DialogDescription>
+                    </DialogHeader>
+                    
+                    <form onSubmit={(e) => handleDonationSubmit(e, "obra")} className="space-y-6 mt-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="obra-name">Nombre Completo</Label>
+                        <Input id="obra-name" placeholder="Tu nombre" required />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="obra-email">Correo Electrónico</Label>
+                        <Input id="obra-email" type="email" placeholder="tu@email.com" required />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="obra-amount">Monto de Donación (C$)</Label>
+                        <Input id="obra-amount" type="number" placeholder="0.00" min="1" step="0.01" required />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="obra-message">Mensaje (Opcional)</Label>
+                        <Textarea id="obra-message" placeholder="Escribe un mensaje..." rows={3} />
+                      </div>
+                      
+                      {/* Versículo Bíblico */}
+                      <div className="relative overflow-hidden rounded-lg bg-gradient-to-br from-primary/10 via-sky/5 to-gold/10 p-6 border-2 border-primary/20">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-gold/20 to-transparent rounded-full blur-3xl" />
+                        <div className="relative">
+                          <Sparkles className="h-6 w-6 text-gold mb-3 mx-auto" />
+                          <p className="text-center italic text-lg mb-3 leading-relaxed">
+                            "Den, y se les dará: se les echará en el regazo una medida llena, apretada, sacudida y desbordante."
+                          </p>
+                          <p className="text-center font-bold text-primary">Lucas 6:38</p>
+                        </div>
+                      </div>
+                      
+                      <Button type="submit" className="w-full h-12 text-lg bg-gradient-to-r from-primary to-sky">
+                        Procesar Donación
+                      </Button>
+                    </form>
+                  </DialogContent>
+                </Dialog>
+              </CardContent>
+            </Card>
+
+            {/* Tarjeta de Asilo de Ancianos */}
+            <Card className="border-2 border-gold/20 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
+              <CardContent className="p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-gold/20 to-accent/20 flex items-center justify-center">
+                    <Home className="h-7 w-7 text-gold" />
                   </div>
+                  <h3 className="text-2xl font-bold">Asilo de Ancianos</h3>
                 </div>
-                <Button className="w-full bg-gradient-to-r from-primary to-sky" size="lg">
-                  <DollarSign className="h-5 w-5 mr-2" />
-                  Donar Ahora
-                </Button>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  Apoya el cuidado y bienestar de nuestros ancianos, brindándoles amor y dignidad en sus años dorados.
+                </p>
+                
+                <Dialog open={donationDialogOpen === "asilo"} onOpenChange={(open) => setDonationDialogOpen(open ? "asilo" : null)}>
+                  <DialogTrigger asChild>
+                    <Button className="w-full bg-gradient-to-r from-gold to-accent" size="lg">
+                      <Heart className="h-5 w-5 mr-2" />
+                      Donar Ahora
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                    <DialogHeader>
+                      <DialogTitle className="text-2xl text-center">Donación para Asilo de Ancianos</DialogTitle>
+                      <DialogDescription className="text-center">
+                        Bendice a nuestros ancianos con tu amor y generosidad
+                      </DialogDescription>
+                    </DialogHeader>
+                    
+                    <form onSubmit={(e) => handleDonationSubmit(e, "asilo")} className="space-y-6 mt-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="asilo-name">Nombre Completo</Label>
+                        <Input id="asilo-name" placeholder="Tu nombre" required />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="asilo-email">Correo Electrónico</Label>
+                        <Input id="asilo-email" type="email" placeholder="tu@email.com" required />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="asilo-amount">Monto de Donación (C$)</Label>
+                        <Input id="asilo-amount" type="number" placeholder="0.00" min="1" step="0.01" required />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="asilo-message">Mensaje (Opcional)</Label>
+                        <Textarea id="asilo-message" placeholder="Escribe un mensaje de bendición..." rows={3} />
+                      </div>
+                      
+                      {/* Versículo Bíblico */}
+                      <div className="relative overflow-hidden rounded-lg bg-gradient-to-br from-gold/10 via-accent/5 to-primary/10 p-6 border-2 border-gold/20">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/20 to-transparent rounded-full blur-3xl" />
+                        <div className="relative">
+                          <Heart className="h-6 w-6 text-gold mb-3 mx-auto" />
+                          <p className="text-center italic text-lg mb-3 leading-relaxed">
+                            "Las canas son una honrosa corona que se obtiene en el camino de la justicia."
+                          </p>
+                          <p className="text-center font-bold text-gold">Proverbios 16:31</p>
+                        </div>
+                      </div>
+                      
+                      <Button type="submit" className="w-full h-12 text-lg bg-gradient-to-r from-gold to-accent">
+                        Procesar Donación
+                      </Button>
+                    </form>
+                  </DialogContent>
+                </Dialog>
               </CardContent>
             </Card>
 
             {/* Tarjeta de Manos de Amor */}
-            <Card className="border-2 border-gold/20 shadow-xl">
+            <Card className="border-2 border-sky/20 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
               <CardContent className="p-8">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-gold/20 to-primary/20 flex items-center justify-center">
-                    <HandHeart className="h-7 w-7 text-gold" />
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-sky/20 to-primary/20 flex items-center justify-center">
+                    <HandHeart className="h-7 w-7 text-sky" />
                   </div>
                   <h3 className="text-2xl font-bold">Manos de Amor</h3>
                 </div>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Ministerio dedicado a servir a los necesitados en nuestra comunidad a través de actos 
-                  concretos de amor, compartiendo el evangelio mediante acciones prácticas de servicio.
+                  Apoya nuestro ministerio de servicio comunitario, llevando el amor de Cristo a los más necesitados.
                 </p>
-                <div className="space-y-4 mb-6">
-                  <div className="p-4 bg-gradient-to-r from-gold/5 to-accent/5 rounded-lg">
-                    <h4 className="font-semibold mb-2 text-gold">Cómo Participar:</h4>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
-                      <li>• Donación de alimentos y ropa</li>
-                      <li>• Voluntariado en eventos comunitarios</li>
-                      <li>• Apoyo a familias necesitadas</li>
-                      <li>• Visitas a enfermos y ancianos</li>
-                    </ul>
-                  </div>
-                </div>
-                <Button className="w-full bg-gradient-to-r from-gold to-primary" size="lg" variant="outline">
-                  <Heart className="h-5 w-5 mr-2" />
-                  Unirme al Ministerio
-                </Button>
+                
+                <Dialog open={donationDialogOpen === "manos"} onOpenChange={(open) => setDonationDialogOpen(open ? "manos" : null)}>
+                  <DialogTrigger asChild>
+                    <Button className="w-full bg-gradient-to-r from-sky to-primary" size="lg">
+                      <HandHeart className="h-5 w-5 mr-2" />
+                      Donar Ahora
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                    <DialogHeader>
+                      <DialogTitle className="text-2xl text-center">Donación para Manos de Amor</DialogTitle>
+                      <DialogDescription className="text-center">
+                        Extiende tu mano para bendecir a los necesitados
+                      </DialogDescription>
+                    </DialogHeader>
+                    
+                    <form onSubmit={(e) => handleDonationSubmit(e, "manos")} className="space-y-6 mt-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="manos-name">Nombre Completo</Label>
+                        <Input id="manos-name" placeholder="Tu nombre" required />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="manos-email">Correo Electrónico</Label>
+                        <Input id="manos-email" type="email" placeholder="tu@email.com" required />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="manos-amount">Monto de Donación (C$)</Label>
+                        <Input id="manos-amount" type="number" placeholder="0.00" min="1" step="0.01" required />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="manos-message">Mensaje (Opcional)</Label>
+                        <Textarea id="manos-message" placeholder="Comparte tu deseo de bendecir..." rows={3} />
+                      </div>
+                      
+                      {/* Versículo Bíblico */}
+                      <div className="relative overflow-hidden rounded-lg bg-gradient-to-br from-sky/10 via-primary/5 to-gold/10 p-6 border-2 border-sky/20">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-gold/20 to-transparent rounded-full blur-3xl" />
+                        <div className="relative">
+                          <HandHeart className="h-6 w-6 text-sky mb-3 mx-auto" />
+                          <p className="text-center italic text-lg mb-3 leading-relaxed">
+                            "Cada uno ponga al servicio de los demás el don que haya recibido, administrando fielmente la gracia de Dios en sus diversas formas."
+                          </p>
+                          <p className="text-center font-bold text-sky">1 Pedro 4:10</p>
+                        </div>
+                      </div>
+                      
+                      <Button type="submit" className="w-full h-12 text-lg bg-gradient-to-r from-sky to-primary">
+                        Procesar Donación
+                      </Button>
+                    </form>
+                  </DialogContent>
+                </Dialog>
               </CardContent>
             </Card>
           </div>
 
-          {/* Versículo Bíblico */}
-          <Card className="max-w-3xl mx-auto border-2 bg-white/80 backdrop-blur">
+          {/* Versículo Bíblico General */}
+          <Card className="max-w-3xl mx-auto mt-12 border-2 bg-white/80 backdrop-blur shadow-xl">
             <CardContent className="p-8 text-center">
-              <p className="text-lg md:text-xl italic text-muted-foreground mb-4">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-primary/10 to-gold/10 mb-4">
+                <Sparkles className="h-6 w-6 text-primary" />
+              </div>
+              <p className="text-lg md:text-xl italic text-muted-foreground mb-4 leading-relaxed">
                 "Cada uno dé como propuso en su corazón: no con tristeza, ni por necesidad, 
                 porque Dios ama al dador alegre."
               </p>
-              <p className="font-bold text-primary">2 Corintios 9:7</p>
+              <p className="font-bold text-primary text-lg">2 Corintios 9:7</p>
             </CardContent>
           </Card>
         </div>
