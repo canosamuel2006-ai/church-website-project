@@ -389,7 +389,7 @@ export default function Home() {
                       <DialogContent className="max-w-3xl !px-2 !py-4">
                         <DialogHeader>
                           <DialogTitle>Sectores PGM - Grupos Pequeños Multiplicadores</DialogTitle>
-                          <DialogDescription>
+                          <DialogDescription className="!w-0 !h-0">
                             Reuniones distribuidas por sectores en Catarina cada jueves de 7:00 PM a 8:00 PM
                           </DialogDescription>
                         </DialogHeader>
