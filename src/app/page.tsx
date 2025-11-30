@@ -394,7 +394,7 @@ export default function Home() {
                           </DialogDescription>
                         </DialogHeader>
                         <div className="space-y-4 mt-4">
-                          <div className="grid md:grid-cols-2 gap-4">
+                          <div className="grid md:grid-cols-2 gap-4 !w-0 !h-0">
                             {pgmSectores.map((sector, idx) =>
                         <Card key={idx} className="border-2 border-primary/20">
                                 <CardContent className="pt-4">
