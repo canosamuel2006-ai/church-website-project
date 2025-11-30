@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import Navigation from "@/components/Navigation"
-import Footer from "@/components/Footer"
-import VideoSection from "@/components/VideoSection"
-import LiveStreamSection from "@/components/LiveStreamSection"
-import { Heart, Users, Handshake, Shield, BookOpen, Sparkles, HandHeart, Youtube, MapPin, Phone, Mail, Clock, Facebook, Instagram, Send, Map, DollarSign } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { useEffect, useState } from "react"
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import VideoSection from "@/components/VideoSection";
+import LiveStreamSection from "@/components/LiveStreamSection";
+import { Heart, Users, Handshake, Shield, BookOpen, Sparkles, HandHeart, Youtube, MapPin, Phone, Mail, Clock, Facebook, Instagram, Send, Map, DollarSign } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [lights, setLights] = useState<Array<{ id: number; x: number; y: number }>>([])
+  const [lights, setLights] = useState<Array<{id: number;x: number;y: number;}>>([]);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -22,117 +22,117 @@ export default function Home() {
         id: Date.now(),
         x: e.clientX,
         y: e.clientY
-      }
-      setLights(prev => [...prev, newLight])
-      
+      };
+      setLights((prev) => [...prev, newLight]);
+
       // Remove light after animation completes
       setTimeout(() => {
-        setLights(prev => prev.filter(light => light.id !== newLight.id))
-      }, 1000)
-    }
+        setLights((prev) => prev.filter((light) => light.id !== newLight.id));
+      }, 1000);
+    };
 
-    document.addEventListener('click', handleClick)
-    return () => document.removeEventListener('click', handleClick)
-  }, [])
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, []);
 
   const valores = [
-    { icon: Heart, title: "Amor", description: "Amamos a Dios y a nuestro prójimo como a nosotros mismos" },
-    { icon: Users, title: "Unidad", description: "Unidos en Cristo, formamos una familia espiritual" },
-    { icon: Handshake, title: "Servicio", description: "Servimos con alegría y dedicación al Señor" },
-    { icon: Shield, title: "Fe", description: "Confiamos plenamente en las promesas de Dios" },
-    { icon: BookOpen, title: "Fidelidad", description: "Fieles a la Palabra de Dios y sus enseñanzas" },
-    { icon: Sparkles, title: "Fraternidad", description: "Cultivamos relaciones genuinas y duraderas" },
-    { icon: HandHeart, title: "Humildad", description: "Servimos con un corazón humilde y agradecido" },
-  ]
+  { icon: Heart, title: "Amor", description: "Amamos a Dios y a nuestro prójimo como a nosotros mismos" },
+  { icon: Users, title: "Unidad", description: "Unidos en Cristo, formamos una familia espiritual" },
+  { icon: Handshake, title: "Servicio", description: "Servimos con alegría y dedicación al Señor" },
+  { icon: Shield, title: "Fe", description: "Confiamos plenamente en las promesas de Dios" },
+  { icon: BookOpen, title: "Fidelidad", description: "Fieles a la Palabra de Dios y sus enseñanzas" },
+  { icon: Sparkles, title: "Fraternidad", description: "Cultivamos relaciones genuinas y duraderas" },
+  { icon: HandHeart, title: "Humildad", description: "Servimos con un corazón humilde y agradecido" }];
+
 
   const ministerios = [
-    {
-      title: "Ensayo Ministerio de Alabanza",
-      schedule: "Lunes y Jueves 6:30 PM - 9:00 PM",
-      description: "Práctica y preparación del equipo de alabanza para los servicios",
-      services: ["Ensayos de música y canto", "Preparación de repertorio", "Adoración corporativa"],
-      day: "Lunes/Jueves"
-    },
-    {
-      title: "Ministerio de Mujeres",
-      schedule: "Martes 7:00 PM - 8:00 PM",
-      description: "Tiempo de compañerismo y edificación para mujeres",
-      services: ["Estudios bíblicos para mujeres", "Grupos de apoyo y consejería", "Eventos de compañerismo"],
-      day: "Martes"
-    },
-    {
-      title: "Ayuno y Oración",
-      schedule: "Miércoles 11:00 AM - 1:00 PM",
-      description: "Día dedicado al ayuno corporativo y oración intercesora",
-      services: ["Ayuno congregacional", "Intercesión por la iglesia", "Oración por necesidades comunitarias"],
-      day: "Miércoles"
-    },
-    {
-      title: "PGM Grupos Pequeños Multiplicadores",
-      schedule: "Jueves 7:00 PM - 8:00 PM",
-      description: "Reuniones en diferentes sectores de la comunidad",
-      services: ["Grupos en sectores residenciales", "Estudio bíblico semanal", "Compañerismo en comunidad"],
-      day: "Jueves",
-      hasMap: true
-    },
-    {
-      title: "Noche de Oración",
-      schedule: "Viernes 6:00 PM - 8:00 PM",
-      description: "Reunión de oración e intercesión",
-      services: ["Oración intercesora", "Alabanza y adoración", "Peticiones especiales"],
-      day: "Viernes"
-    },
-    {
-      title: "Ministerio de Jóvenes",
-      schedule: "Sábado 6:00 PM - 8:00 PM",
-      description: "Actividades y enseñanza para jóvenes",
-      services: ["Estudios bíblicos juveniles", "Actividades recreativas", "Discipulado para jóvenes"],
-      day: "Sábado"
-    },
-    {
-      title: "Escuela Dominical",
-      schedule: "Domingo 8:00 AM - 10:00 AM",
-      description: "Educación bíblica para todas las edades",
-      services: ["Clases por edades", "Enseñanza bíblica sistemática", "Aplicación práctica"],
-      day: "Domingo"
-    },
-    {
-      title: "Escuela de Jóvenes y Adultos",
-      schedule: "Domingo 11:00 AM - 12:30 PM",
-      description: "Enseñanza bíblica especializada para jóvenes y adultos",
-      services: ["Estudio profundo de la Palabra", "Teología práctica", "Formación de discípulos"],
-      day: "Domingo"
-    },
-    {
-      title: "Culto Evangelístico",
-      schedule: "Domingo 5:00 PM - 8:30 PM",
-      description: "Servicio de adoración y predicación evangelística",
-      services: ["Predicación del evangelio", "Adoración congregacional", "Altar de oración y salvación"],
-      day: "Domingo"
-    }
-  ]
+  {
+    title: "Ensayo Ministerio de Alabanza",
+    schedule: "Lunes y Jueves 6:30 PM - 9:00 PM",
+    description: "Práctica y preparación del equipo de alabanza para los servicios",
+    services: ["Ensayos de música y canto", "Preparación de repertorio", "Adoración corporativa"],
+    day: "Lunes/Jueves"
+  },
+  {
+    title: "Ministerio de Mujeres",
+    schedule: "Martes 7:00 PM - 8:00 PM",
+    description: "Tiempo de compañerismo y edificación para mujeres",
+    services: ["Estudios bíblicos para mujeres", "Grupos de apoyo y consejería", "Eventos de compañerismo"],
+    day: "Martes"
+  },
+  {
+    title: "Ayuno y Oración",
+    schedule: "Miércoles 11:00 AM - 1:00 PM",
+    description: "Día dedicado al ayuno corporativo y oración intercesora",
+    services: ["Ayuno congregacional", "Intercesión por la iglesia", "Oración por necesidades comunitarias"],
+    day: "Miércoles"
+  },
+  {
+    title: "PGM Grupos Pequeños Multiplicadores",
+    schedule: "Jueves 7:00 PM - 8:00 PM",
+    description: "Reuniones en diferentes sectores de la comunidad",
+    services: ["Grupos en sectores residenciales", "Estudio bíblico semanal", "Compañerismo en comunidad"],
+    day: "Jueves",
+    hasMap: true
+  },
+  {
+    title: "Noche de Oración",
+    schedule: "Viernes 6:00 PM - 8:00 PM",
+    description: "Reunión de oración e intercesión",
+    services: ["Oración intercesora", "Alabanza y adoración", "Peticiones especiales"],
+    day: "Viernes"
+  },
+  {
+    title: "Ministerio de Jóvenes",
+    schedule: "Sábado 6:00 PM - 8:00 PM",
+    description: "Actividades y enseñanza para jóvenes",
+    services: ["Estudios bíblicos juveniles", "Actividades recreativas", "Discipulado para jóvenes"],
+    day: "Sábado"
+  },
+  {
+    title: "Escuela Dominical",
+    schedule: "Domingo 8:00 AM - 10:00 AM",
+    description: "Educación bíblica para todas las edades",
+    services: ["Clases por edades", "Enseñanza bíblica sistemática", "Aplicación práctica"],
+    day: "Domingo"
+  },
+  {
+    title: "Escuela de Jóvenes y Adultos",
+    schedule: "Domingo 11:00 AM - 12:30 PM",
+    description: "Enseñanza bíblica especializada para jóvenes y adultos",
+    services: ["Estudio profundo de la Palabra", "Teología práctica", "Formación de discípulos"],
+    day: "Domingo"
+  },
+  {
+    title: "Culto Evangelístico",
+    schedule: "Domingo 5:00 PM - 8:30 PM",
+    description: "Servicio de adoración y predicación evangelística",
+    services: ["Predicación del evangelio", "Adoración congregacional", "Altar de oración y salvación"],
+    day: "Domingo"
+  }];
+
 
   const pgmSectores = [
-    { nombre: "Mirador de Catarina", lider: "Familia García", direccion: "Mirador de Catarina" },
-    { nombre: "Zona 4", lider: "Familia Martínez", direccion: "Zona 4, Catarina" },
-    { nombre: "Niquinohomo", lider: "Familia López", direccion: "Niquinohomo" },
-    { nombre: "San Juan de Oriente", lider: "Familia Rodríguez", direccion: "San Juan de Oriente" },
-    { nombre: "Entrada de Catarina", lider: "Familia Hernández", direccion: "Entrada de Catarina" }
-  ]
+  { nombre: "Mirador de Catarina", lider: "Familia García", direccion: "Mirador de Catarina" },
+  { nombre: "Zona 4", lider: "Familia Martínez", direccion: "Zona 4, Catarina" },
+  { nombre: "Niquinohomo", lider: "Familia López", direccion: "Niquinohomo" },
+  { nombre: "San Juan de Oriente", lider: "Familia Rodríguez", direccion: "San Juan de Oriente" },
+  { nombre: "Entrada de Catarina", lider: "Familia Hernández", direccion: "Entrada de Catarina" }];
+
 
   return (
     <div className="flex flex-col min-h-screen relative">
       {/* Interactive Light Effects */}
-      {lights.map(light => (
-        <div
-          key={light.id}
-          className="fixed pointer-events-none z-50"
-          style={{
-            left: light.x,
-            top: light.y,
-            transform: 'translate(-50%, -50%)'
-          }}
-        >
+      {lights.map((light) =>
+      <div
+        key={light.id}
+        className="fixed pointer-events-none z-50"
+        style={{
+          left: light.x,
+          top: light.y,
+          transform: 'translate(-50%, -50%)'
+        }}>
+
           <div className="relative">
             {/* Main light burst */}
             <div className="absolute inset-0 w-20 h-20 bg-gradient-radial from-primary/60 via-sky/40 to-transparent rounded-full animate-ping opacity-75" />
@@ -144,7 +144,7 @@ export default function Home() {
             <div className="absolute bottom-0 right-0 w-2 h-2 bg-gold rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
           </div>
         </div>
-      ))}
+      )}
 
       <Navigation />
       
@@ -306,12 +306,12 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            {valores.map((valor, index) => (
-              <Card 
-                key={valor.title} 
-                className="group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 hover:border-primary/50 cursor-pointer"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
+            {valores.map((valor, index) =>
+            <Card
+              key={valor.title}
+              className="group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 hover:border-primary/50 cursor-pointer"
+              style={{ animationDelay: `${index * 100}ms` }}>
+
                 <CardContent className="pt-8 text-center">
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-primary/10 to-sky/10 mb-4 group-hover:scale-110 transition-transform">
                     <valor.icon className="h-8 w-8 text-primary" />
@@ -324,7 +324,7 @@ export default function Home() {
                   </p>
                 </CardContent>
               </Card>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -348,11 +348,11 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {ministerios.map((ministerio, index) => (
-              <Card 
-                key={ministerio.title}
-                className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 hover:border-primary/50"
-              >
+            {ministerios.map((ministerio, index) =>
+            <Card
+              key={ministerio.title}
+              className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 hover:border-primary/50">
+
                 <CardContent className="pt-6">
                   <div className="flex items-start gap-3 mb-4">
                     <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary/10 to-sky/10 flex items-center justify-center flex-shrink-0">
@@ -369,24 +369,24 @@ export default function Home() {
                   <div className="space-y-2 mb-4 pt-4 border-t">
                     <p className="text-sm font-semibold text-sky mb-2">Servicios:</p>
                     <ul className="space-y-1">
-                      {ministerio.services?.map((service, idx) => (
-                        <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                      {ministerio.services?.map((service, idx) =>
+                    <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
                           <span className="text-primary mt-1">•</span>
                           <span>{service}</span>
                         </li>
-                      ))}
+                    )}
                     </ul>
                   </div>
 
-                  {ministerio.hasMap && (
-                    <Dialog>
+                  {ministerio.hasMap &&
+                <Dialog>
                       <DialogTrigger asChild>
                         <Button variant="outline" className="w-full mt-2">
                           <Map className="h-4 w-4 mr-2" />
                           Ver Mapa de Sectores
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="max-w-3xl">
+                      <DialogContent className="max-w-3xl !px-2 !py-4">
                         <DialogHeader>
                           <DialogTitle>Sectores PGM - Grupos Pequeños Multiplicadores</DialogTitle>
                           <DialogDescription>
@@ -395,8 +395,8 @@ export default function Home() {
                         </DialogHeader>
                         <div className="space-y-4 mt-4">
                           <div className="grid md:grid-cols-2 gap-4">
-                            {pgmSectores.map((sector, idx) => (
-                              <Card key={idx} className="border-2 border-primary/20">
+                            {pgmSectores.map((sector, idx) =>
+                        <Card key={idx} className="border-2 border-primary/20">
                                 <CardContent className="pt-4">
                                   <div className="flex items-start gap-3">
                                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-sky/20 flex items-center justify-center flex-shrink-0">
@@ -414,7 +414,7 @@ export default function Home() {
                                   </div>
                                 </CardContent>
                               </Card>
-                            ))}
+                        )}
                           </div>
                           <div className="bg-muted/50 p-4 rounded-lg">
                             <p className="text-sm text-muted-foreground text-center">
@@ -425,10 +425,10 @@ export default function Home() {
                         </div>
                       </DialogContent>
                     </Dialog>
-                  )}
+                }
                 </CardContent>
               </Card>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -681,8 +681,8 @@ export default function Home() {
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    title="Ubicación Iglesia Bautista del Remanente"
-                  />
+                    title="Ubicación Iglesia Bautista del Remanente" />
+
                 </div>
               </CardContent>
             </Card>
@@ -730,6 +730,6 @@ export default function Home() {
       </section>
 
       <Footer />
-    </div>
-  )
+    </div>);
+
 }
