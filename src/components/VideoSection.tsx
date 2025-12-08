@@ -90,13 +90,19 @@ export default function VideoSection() {
 
         <div className="text-center">
           <Button
+            asChild
             size="lg"
             variant="outline"
-            onClick={() => setShowMore(!showMore)}
             className="group"
           >
-            <Play className="h-4 w-4 mr-2 group-hover:text-primary" />
-            {showMore ? "Ver menos videos" : "Ver más videos"}
+            <a
+              href="https://www.youtube.com/@elremanentecatarina/videos"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Play className="h-4 w-4 mr-2 group-hover:text-primary" />
+              Ver todos los videos en YouTube
+            </a>
           </Button>
         </div>
       </div>

@@ -75,7 +75,7 @@ export default function LiveStreamSection() {
                     className="bg-gradient-to-r from-primary to-sky whitespace-nowrap"
                   >
                     <a
-                      href="https://www.youtube.com/@IglesiaBautistaDelRemanente"
+                      href="https://www.youtube.com/@elremanentecatarina"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
