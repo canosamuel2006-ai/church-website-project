@@ -11,8 +11,12 @@ import { Heart, Users, Handshake, Shield, BookOpen, Sparkles, HandHeart, Youtube
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export default function Home() {
+  const [openManosDialog, setOpenManosDialog] = useState(false);
+
   const valores = [
     { icon: Heart, title: "Amor", description: "Amamos a Dios y a nuestro prójimo como a nosotros mismos" },
     { icon: Users, title: "Unidad", description: "Unidos en Cristo, formamos una familia espiritual" },
@@ -98,51 +102,67 @@ export default function Home() {
     { nombre: "Entrada de Catarina", lider: "Familia Hernández", direccion: "Entrada de Catarina" }
   ];
 
+  const donationItems = [
+    "Ropa en buen estado",
+    "Alimentos no perecederos",
+    "Juguetes para niños",
+    "Artículos de higiene personal",
+    "Material escolar",
+    "Pañales",
+    "Toallas y sábanas",
+    "Agua embotellada",
+    "Productos de limpieza"
+  ];
+
+  const handleDonationClick = () => {
+    toast.info("Sistema de donaciones en línea próximamente disponible. Por favor, dona durante los servicios o contacta la oficina.");
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navigation />
       
-      {/* Hero Section - ESPECTACULAR */}
+      {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/e1f90d12-0718-4647-aa07-a5d1db5f4e6c/generated_images/modern-church-interior-with-celestial-li-38c87ee0-20251206190210.jpg"
+            src="/hero-church.jpg"
             alt="Iglesia Bautista del Remanente"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-sky/60 to-gold/40 dark:from-background/90 dark:via-primary/70 dark:to-background/80" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-sky/60 to-gold/40" />
         </div>
 
         {/* Content */}
         <div className="container mx-auto px-6 text-center relative z-10 py-20">
           <h1 className="text-6xl md:text-8xl font-bold tracking-tight mb-8 animate-fade-in-up">
-            <span className="block text-white dark:text-primary drop-shadow-2xl">
+            <span className="block text-white drop-shadow-2xl">
               Iglesia Bautista
             </span>
-            <span className="block text-gold dark:text-gold drop-shadow-2xl mt-2">
+            <span className="block text-gold drop-shadow-2xl mt-2">
               del Remanente
             </span>
           </h1>
           
-          <p className="text-2xl md:text-4xl text-white dark:text-foreground/90 mb-12 max-w-4xl mx-auto font-light tracking-wide animate-fade-in-up animation-delay-200 drop-shadow-lg">
+          <p className="text-2xl md:text-4xl text-white mb-12 max-w-4xl mx-auto font-light tracking-wide animate-fade-in-up animation-delay-200 drop-shadow-lg">
             Firmes en la fe, creciendo en Cristo
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16 animate-fade-in-up animation-delay-300">
-            <Button size="lg" className="text-lg px-10 py-7 bg-white dark:bg-primary text-primary dark:text-white hover:scale-105 transition-all duration-300 shadow-2xl rounded-full font-semibold" asChild>
+            <Button size="lg" className="text-lg px-10 py-7 bg-white text-primary hover:scale-105 transition-all duration-300 shadow-2xl rounded-full font-semibold" asChild>
               <Link href="#sobre-nosotros">Conócenos</Link>
             </Button>
             <Button 
               size="lg" 
-              className="text-lg px-10 py-7 border-2 border-gold bg-transparent text-[#0A1D33] dark:text-white hover:bg-gold hover:text-white hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] hover:scale-105 transition-all duration-300 rounded-full font-semibold" 
+              className="text-lg px-10 py-7 border-2 border-gold bg-transparent text-white hover:bg-gold hover:text-white hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] hover:scale-105 transition-all duration-300 rounded-full font-semibold" 
               asChild
             >
               <Link href="#contacto">Visítanos</Link>
             </Button>
             <Button 
               size="lg" 
-              className="text-lg px-10 py-7 border-2 border-gold bg-transparent text-[#0A1D33] dark:text-white hover:bg-gold hover:text-white hover:shadow-[0_0_35px_rgba(212,175,55,0.7)] hover:scale-105 transition-all duration-300 rounded-full font-semibold inline-flex items-center gap-2" 
+              className="text-lg px-10 py-7 border-2 border-gold bg-transparent text-white hover:bg-gold hover:text-white hover:shadow-[0_0_35px_rgba(212,175,55,0.7)] hover:scale-105 transition-all duration-300 rounded-full font-semibold inline-flex items-center gap-2" 
               asChild
             >
               <Link href="#mensajes">
@@ -153,22 +173,22 @@ export default function Home() {
           </div>
 
           {/* Schedule Card with Glassmorphism */}
-          <Card className="max-w-5xl mx-auto backdrop-blur-xl bg-white/10 dark:bg-card/20 border-2 border-white/30 dark:border-primary/30 shadow-2xl animate-fade-in-up animation-delay-400 rounded-3xl">
+          <Card className="max-w-5xl mx-auto backdrop-blur-xl bg-white/10 border-2 border-white/30 shadow-2xl animate-fade-in-up animation-delay-400 rounded-3xl">
             <CardContent className="p-10">
               <div className="flex items-center justify-center gap-3 mb-8">
                 <Clock className="h-8 w-8 text-gold" />
-                <h2 className="text-3xl font-bold text-white dark:text-foreground">Horarios de Servicio</h2>
+                <h2 className="text-3xl font-bold text-white">Horarios de Servicio</h2>
               </div>
               <div className="grid md:grid-cols-2 gap-8">
-                <div className="p-8 bg-white/20 dark:bg-card/40 backdrop-blur-lg rounded-2xl border border-white/40 dark:border-primary/40 hover:scale-105 transition-transform duration-300">
+                <div className="p-8 bg-white/20 backdrop-blur-lg rounded-2xl border border-white/40 hover:scale-105 transition-transform duration-300">
                   <p className="font-bold text-2xl mb-4 text-gold">Culto Dominical</p>
-                  <p className="text-xl text-white dark:text-foreground/90 mb-2">8:00 AM - Escuela Dominical</p>
-                  <p className="text-xl text-white dark:text-foreground/90">5:00 PM - Culto Evangelístico</p>
+                  <p className="text-xl text-white mb-2">8:00 AM - Escuela Dominical</p>
+                  <p className="text-xl text-white">5:00 PM - Culto Evangelístico</p>
                 </div>
-                <div className="p-8 bg-white/20 dark:bg-card/40 backdrop-blur-lg rounded-2xl border border-white/40 dark:border-primary/40 hover:scale-105 transition-transform duration-300">
+                <div className="p-8 bg-white/20 backdrop-blur-lg rounded-2xl border border-white/40 hover:scale-105 transition-transform duration-300">
                   <p className="font-bold text-2xl mb-4 text-gold">Estudio Bíblico</p>
-                  <p className="text-xl text-white dark:text-foreground/90 mb-2">Miércoles 11:00 AM - Ayuno y Oración</p>
-                  <p className="text-xl text-white dark:text-foreground/90">Jueves 7:00 PM - PGM</p>
+                  <p className="text-xl text-white mb-2">Miércoles 11:00 AM - Ayuno y Oración</p>
+                  <p className="text-xl text-white">Jueves 7:00 PM - PGM</p>
                 </div>
               </div>
             </CardContent>
@@ -176,8 +196,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Quiénes Somos - MEJORADO */}
-      <section id="sobre-nosotros" className="py-32 bg-background dark:bg-background transition-colors duration-300">
+      {/* Quiénes Somos */}
+      <section id="sobre-nosotros" className="py-32 bg-background transition-colors duration-300">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-20">
@@ -193,10 +213,43 @@ export default function Home() {
               de una relación personal con Jesucristo.
             </p>
 
+            {/* Galería de Imágenes */}
+            <div className="grid md:grid-cols-2 gap-8 mb-16">
+              <Card className="overflow-hidden border-2 border-primary/20 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-3xl group">
+                <div className="relative h-80 overflow-hidden">
+                  <img 
+                    src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/e1f90d12-0718-4647-aa07-a5d1db5f4e6c/generated_images/modern-church-exterior-in-catarina-nicar-bb45584b-20251206193413.jpg"
+                    alt="Iglesia Bautista del Remanente - Exterior"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="text-white text-2xl font-bold">Nuestro Templo</h3>
+                    <p className="text-white/90 text-sm">Un lugar de encuentro con Dios</p>
+                  </div>
+                </div>
+              </Card>
+
+              <Card className="overflow-hidden border-2 border-primary/20 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-3xl group">
+                <div className="relative h-80 overflow-hidden">
+                  <img 
+                    src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/e1f90d12-0718-4647-aa07-a5d1db5f4e6c/generated_images/church-congregation-community-gathering--dc457bc1-20251206193413.jpg"
+                    alt="Comunidad de la iglesia reunida"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="text-white text-2xl font-bold">Nuestra Comunidad</h3>
+                    <p className="text-white/90 text-sm">Unidos en amor y fe</p>
+                  </div>
+                </div>
+              </Card>
+            </div>
+
             {/* Historia Section */}
-            <Card className="mb-16 border-2 border-primary/20 dark:border-primary/40 shadow-2xl rounded-3xl overflow-hidden hover:shadow-3xl transition-all duration-300">
+            <Card className="mb-16 border-2 border-primary/20 shadow-2xl rounded-3xl overflow-hidden hover:shadow-3xl transition-all duration-300">
               <CardContent className="p-12 md:p-16">
-                <h3 className="text-3xl font-bold mb-6 text-primary dark:text-primary">Nuestra Historia</h3>
+                <h3 className="text-3xl font-bold mb-6 text-primary">Nuestra Historia</h3>
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   Creemos en la autoridad de las Escrituras, el poder transformador del Evangelio y la importancia 
                   de vivir en comunidad. La Iglesia Bautista del Remanente nació con la visión de impactar Catarina 
@@ -206,9 +259,9 @@ export default function Home() {
             </Card>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <Card className="group border-2 border-border dark:border-primary/30 hover:border-primary dark:hover:border-primary transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 rounded-2xl">
+              <Card className="group border-2 border-border hover:border-primary transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 rounded-2xl">
                 <CardContent className="pt-12 pb-10 px-8 text-center">
-                  <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary/20 to-sky/20 dark:from-primary/30 dark:to-sky/30 flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                  <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary/20 to-sky/20 flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                     <BookOpen className="h-10 w-10 text-primary" />
                   </div>
                   <h3 className="font-bold text-2xl mb-4 group-hover:text-primary transition-colors">Enseñanza Bíblica</h3>
@@ -216,9 +269,9 @@ export default function Home() {
                 </CardContent>
               </Card>
 
-              <Card className="group border-2 border-border dark:border-primary/30 hover:border-sky dark:hover:border-sky transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 rounded-2xl">
+              <Card className="group border-2 border-border hover:border-sky transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 rounded-2xl">
                 <CardContent className="pt-12 pb-10 px-8 text-center">
-                  <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-sky/20 to-gold/20 dark:from-sky/30 dark:to-gold/30 flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                  <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-sky/20 to-gold/20 flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                     <Users className="h-10 w-10 text-sky" />
                   </div>
                   <h3 className="font-bold text-2xl mb-4 group-hover:text-sky transition-colors">Comunidad</h3>
@@ -226,9 +279,9 @@ export default function Home() {
                 </CardContent>
               </Card>
 
-              <Card className="group border-2 border-border dark:border-primary/30 hover:border-gold dark:hover:border-gold transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 rounded-2xl">
+              <Card className="group border-2 border-border hover:border-gold transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 rounded-2xl">
                 <CardContent className="pt-12 pb-10 px-8 text-center">
-                  <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-gold/20 to-primary/20 dark:from-gold/30 dark:to-primary/30 flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                  <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-gold/20 to-primary/20 flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                     <Heart className="h-10 w-10 text-gold" />
                   </div>
                   <h3 className="font-bold text-2xl mb-4 group-hover:text-gold transition-colors">Servicio</h3>
@@ -240,19 +293,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Visión y Misión - MEJORADO */}
-      <section id="vision-mision" className="py-32 bg-muted/30 dark:bg-muted/10 transition-colors duration-300">
+      {/* Visión y Misión */}
+      <section id="vision-mision" className="py-32 bg-muted/30 transition-colors duration-300">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto space-y-16">
             {/* Visión */}
-            <Card className="border-2 border-primary/30 dark:border-primary/50 shadow-2xl overflow-hidden rounded-3xl hover:shadow-3xl transition-all duration-300">
+            <Card className="border-2 border-primary/30 shadow-2xl overflow-hidden rounded-3xl hover:shadow-3xl transition-all duration-300">
               <div className="bg-gradient-to-r from-primary via-sky to-primary p-10">
                 <h2 className="text-5xl md:text-6xl font-bold text-white text-center">
                   Nuestra Visión
                 </h2>
               </div>
-              <CardContent className="p-12 md:p-20 bg-card dark:bg-card">
-                <p className="text-xl md:text-2xl leading-relaxed text-center tracking-wide text-foreground dark:text-foreground">
+              <CardContent className="p-12 md:p-20 bg-card">
+                <p className="text-xl md:text-2xl leading-relaxed text-center tracking-wide text-foreground">
                   La Iglesia Bautista del Remanente nace como un proyecto para el crecimiento integral de la comunidad, 
                   impulsado por la evangelización, el discipulado y el servicio cristiano.
                   <br /><br />
@@ -263,14 +316,14 @@ export default function Home() {
             </Card>
 
             {/* Misión */}
-            <Card className="border-2 border-gold/30 dark:border-gold/50 shadow-2xl overflow-hidden rounded-3xl hover:shadow-3xl transition-all duration-300">
+            <Card className="border-2 border-gold/30 shadow-2xl overflow-hidden rounded-3xl hover:shadow-3xl transition-all duration-300">
               <div className="bg-gradient-to-r from-gold via-primary to-gold p-10">
                 <h2 className="text-5xl md:text-6xl font-bold text-white text-center">
                   Nuestra Misión
                 </h2>
               </div>
-              <CardContent className="p-12 md:p-20 bg-card dark:bg-card">
-                <p className="text-xl md:text-2xl leading-relaxed text-center tracking-wide text-foreground dark:text-foreground">
+              <CardContent className="p-12 md:p-20 bg-card">
+                <p className="text-xl md:text-2xl leading-relaxed text-center tracking-wide text-foreground">
                   Somos una iglesia redimida por nuestro Señor Jesucristo y llamada a cumplir la Gran Comisión en el municipio de Catarina.
                   <br /><br />
                   Nos dedicamos a ganar nuevas almas para Cristo, a enseñar fielmente la Palabra de Dios, y a formar discípulos 
@@ -282,8 +335,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Valores - MEJORADO */}
-      <section className="py-32 bg-background dark:bg-background transition-colors duration-300">
+      {/* Valores */}
+      <section className="py-32 bg-background transition-colors duration-300">
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-sky to-gold bg-clip-text text-transparent">
@@ -295,16 +348,49 @@ export default function Home() {
             </p>
           </div>
 
+          {/* Galería de Imágenes de Valores */}
+          <div className="grid md:grid-cols-2 gap-8 mb-16 max-w-6xl mx-auto">
+            <Card className="overflow-hidden border-2 border-primary/20 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-3xl group">
+              <div className="relative h-80 overflow-hidden">
+                <img 
+                  src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/e1f90d12-0718-4647-aa07-a5d1db5f4e6c/generated_images/church-worship-service-people-with-raise-663ccecc-20251206193413.jpg"
+                  alt="Adoración y alabanza en la iglesia"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <h3 className="text-white text-2xl font-bold">Adoración</h3>
+                  <p className="text-white/90 text-sm">En espíritu y en verdad</p>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="overflow-hidden border-2 border-primary/20 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-3xl group">
+              <div className="relative h-80 overflow-hidden">
+                <img 
+                  src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/e1f90d12-0718-4647-aa07-a5d1db5f4e6c/generated_images/church-small-group-bible-study-people-si-9351a9fd-20251206193413.jpg"
+                  alt="Estudio bíblico en grupo pequeño"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <h3 className="text-white text-2xl font-bold">Discipulado</h3>
+                  <p className="text-white/90 text-sm">Creciendo juntos en la fe</p>
+                </div>
+              </div>
+            </Card>
+          </div>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
             {valores.map((valor, index) => (
               <Card
                 key={valor.title}
-                className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border-2 border-border dark:border-primary/30 hover:border-primary dark:hover:border-primary cursor-pointer rounded-2xl overflow-hidden"
+                className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border-2 border-border hover:border-primary cursor-pointer rounded-2xl overflow-hidden"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-sky/0 group-hover:from-primary/10 group-hover:to-sky/10 dark:group-hover:from-primary/20 dark:group-hover:to-sky/20 transition-all duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-sky/0 group-hover:from-primary/10 group-hover:to-sky/10 transition-all duration-500"></div>
                 <CardContent className="pt-12 pb-10 px-8 text-center relative z-10">
-                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/10 to-sky/10 dark:from-primary/20 dark:to-sky/20 mb-6 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
+                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/10 to-sky/10 mb-6 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
                     <valor.icon className="h-10 w-10 text-primary" />
                   </div>
                   <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">
@@ -326,8 +412,8 @@ export default function Home() {
       {/* Live Stream Section */}
       <LiveStreamSection />
 
-      {/* Ministerios - MEJORADO */}
-      <section id="ministerios" className="py-16 md:py-24 bg-background dark:bg-background transition-colors duration-300">
+      {/* Ministerios */}
+      <section id="ministerios" className="py-16 md:py-24 bg-background transition-colors duration-300">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-primary via-sky to-gold bg-clip-text text-transparent">
@@ -343,23 +429,23 @@ export default function Home() {
             {ministerios.map((ministerio, index) => (
               <Card
                 key={ministerio.title}
-                className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 border-border dark:border-primary/30 hover:border-primary dark:hover:border-primary rounded-xl overflow-hidden"
+                className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 border-border hover:border-primary rounded-xl overflow-hidden"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-sky/0 group-hover:from-primary/5 group-hover:to-sky/5 dark:group-hover:from-primary/10 dark:group-hover:to-sky/10 transition-all duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-sky/0 group-hover:from-primary/5 group-hover:to-sky/5 transition-all duration-300"></div>
                 <CardContent className="p-4 md:p-5 relative z-10">
                   <div className="flex items-start gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary/10 to-sky/10 dark:from-primary/20 dark:to-sky/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary/10 to-sky/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                       <Clock className="h-6 w-6 text-primary" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-bold text-base md:text-lg mb-1 group-hover:text-primary transition-colors line-clamp-2">{ministerio.title}</h3>
-                      <p className="text-xs md:text-sm text-primary dark:text-sky font-semibold">{ministerio.schedule}</p>
+                      <p className="text-xs md:text-sm text-primary font-semibold">{ministerio.schedule}</p>
                     </div>
                   </div>
                   <p className="text-muted-foreground text-sm mb-4 leading-relaxed line-clamp-2">{ministerio.description}</p>
                   
-                  <div className="space-y-2 pt-4 border-t border-border dark:border-primary/20">
-                    <p className="text-xs font-semibold text-sky dark:text-primary mb-2">Servicios:</p>
+                  <div className="space-y-2 pt-4 border-t border-border">
+                    <p className="text-xs font-semibold text-sky mb-2">Servicios:</p>
                     <ul className="space-y-1.5">
                       {ministerio.services?.map((service, idx) => (
                         <li key={idx} className="text-xs text-muted-foreground flex items-start gap-1.5">
@@ -373,7 +459,7 @@ export default function Home() {
                   {ministerio.hasMap && (
                     <Dialog>
                       <DialogTrigger asChild>
-                        <Button variant="outline" className="w-full mt-4 text-sm py-2 hover:bg-primary hover:text-white dark:hover:bg-primary transition-all duration-300">
+                        <Button variant="outline" className="w-full mt-4 text-sm py-2 hover:bg-primary hover:text-white transition-all duration-300">
                           <Map className="h-4 w-4 mr-2" />
                           Ver Mapa de Sectores
                         </Button>
@@ -388,10 +474,10 @@ export default function Home() {
                         <div className="space-y-6 mt-6">
                           <div className="grid sm:grid-cols-2 gap-4">
                             {pgmSectores.map((sector, idx) => (
-                              <Card key={idx} className="border-2 border-primary/30 dark:border-primary/40 hover:border-primary dark:hover:border-primary hover:shadow-lg transition-all duration-300">
+                              <Card key={idx} className="border-2 border-primary/30 hover:border-primary hover:shadow-lg transition-all duration-300">
                                 <CardContent className="p-4">
                                   <div className="flex items-start gap-3">
-                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-sky/20 dark:from-primary/30 dark:to-sky/30 flex items-center justify-center flex-shrink-0">
+                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-sky/20 flex items-center justify-center flex-shrink-0">
                                       <MapPin className="h-5 w-5 text-primary" />
                                     </div>
                                     <div className="min-w-0">
@@ -408,7 +494,7 @@ export default function Home() {
                               </Card>
                             ))}
                           </div>
-                          <div className="bg-muted/50 dark:bg-muted/20 p-4 rounded-xl">
+                          <div className="bg-muted/50 p-4 rounded-xl">
                             <p className="text-xs md:text-sm text-muted-foreground text-center">
                               <strong>Nota:</strong> Para conocer la dirección exacta del grupo en tu sector, 
                               comunícate con nosotros o pregunta en la iglesia el próximo domingo.
@@ -425,12 +511,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Donación y Manos de Amor - MEJORADO */}
-      <section id="donacion" className="py-32 bg-muted/30 dark:bg-muted/10 transition-colors duration-300">
+      {/* Ofrenda y Manos de Amor */}
+      <section id="ofrenda" className="py-32 bg-muted/30 transition-colors duration-300">
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-gold to-primary bg-clip-text text-transparent">
-              Donación y Manos de Amor
+              Ofrenda y Manos de Amor
             </h2>
             <div className="w-32 h-1.5 bg-gradient-to-r from-primary via-gold to-primary mx-auto mb-8 rounded-full"></div>
             <p className="text-muted-foreground text-xl max-w-3xl mx-auto">
@@ -439,22 +525,22 @@ export default function Home() {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-10 max-w-6xl mx-auto mb-16">
-            <Card className="border-2 border-primary/30 dark:border-primary/50 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:-translate-y-2 rounded-3xl overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-sky/5 dark:from-primary/10 dark:to-sky/10"></div>
+            <Card className="border-2 border-primary/30 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:-translate-y-2 rounded-3xl overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-sky/5"></div>
               <CardContent className="p-10 relative z-10">
                 <div className="flex items-center gap-4 mb-8">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-sky/20 dark:from-primary/30 dark:to-sky/30 flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-sky/20 flex items-center justify-center">
                     <DollarSign className="h-8 w-8 text-primary" />
                   </div>
-                  <h3 className="text-3xl font-bold">Donaciones</h3>
+                  <h3 className="text-3xl font-bold">Ofrenda</h3>
                 </div>
                 <p className="text-muted-foreground mb-8 leading-relaxed text-lg">
                   Tus ofrendas y diezmos sostienen la obra del Señor, permitiendo que la iglesia continúe 
                   predicando el evangelio, sirviendo a la comunidad y glorificando el nombre de Dios.
                 </p>
                 <div className="space-y-6 mb-8">
-                  <div className="p-6 bg-card dark:bg-card/50 rounded-2xl border border-primary/20 dark:border-primary/30">
-                    <h4 className="font-semibold mb-4 text-primary text-lg">Formas de Donar:</h4>
+                  <div className="p-6 bg-card rounded-2xl border border-primary/20">
+                    <h4 className="font-semibold mb-4 text-primary text-lg">Formas de Ofrendar:</h4>
                     <ul className="space-y-3 text-muted-foreground">
                       <li className="flex items-center gap-2">
                         <span className="text-primary">•</span>
@@ -475,18 +561,22 @@ export default function Home() {
                     </ul>
                   </div>
                 </div>
-                <Button className="w-full bg-gradient-to-r from-primary to-sky hover:scale-105 transition-all duration-300 text-lg py-6 rounded-full" size="lg">
+                <Button 
+                  onClick={handleDonationClick}
+                  className="w-full bg-gradient-to-r from-primary to-sky hover:scale-105 transition-all duration-300 text-lg py-6 rounded-full" 
+                  size="lg"
+                >
                   <DollarSign className="h-6 w-6 mr-2" />
-                  Donar Ahora
+                  Ofrendar Ahora
                 </Button>
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-gold/30 dark:border-gold/50 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:-translate-y-2 rounded-3xl overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-primary/5 dark:from-gold/10 dark:to-primary/10"></div>
+            <Card className="border-2 border-gold/30 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:-translate-y-2 rounded-3xl overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-primary/5"></div>
               <CardContent className="p-10 relative z-10">
                 <div className="flex items-center gap-4 mb-8">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-gold/20 to-primary/20 dark:from-gold/30 dark:to-primary/30 flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-gold/20 to-primary/20 flex items-center justify-center">
                     <HandHeart className="h-8 w-8 text-gold" />
                   </div>
                   <h3 className="text-3xl font-bold">Manos de Amor</h3>
@@ -496,7 +586,7 @@ export default function Home() {
                   concretos de amor, compartiendo el evangelio mediante acciones prácticas de servicio.
                 </p>
                 <div className="space-y-6 mb-8">
-                  <div className="p-6 bg-card dark:bg-card/50 rounded-2xl border border-gold/20 dark:border-gold/30">
+                  <div className="p-6 bg-card rounded-2xl border border-gold/20">
                     <h4 className="font-semibold mb-4 text-gold text-lg">Cómo Participar:</h4>
                     <ul className="space-y-3 text-muted-foreground">
                       <li className="flex items-center gap-2">
@@ -518,15 +608,75 @@ export default function Home() {
                     </ul>
                   </div>
                 </div>
-                <Button className="w-full bg-gradient-to-r from-gold to-primary hover:scale-105 transition-all duration-300 text-lg py-6 rounded-full" size="lg">
-                  <Heart className="h-6 w-6 mr-2" />
-                  Unirme al Ministerio
-                </Button>
+                <Dialog open={openManosDialog} onOpenChange={setOpenManosDialog}>
+                  <DialogTrigger asChild>
+                    <Button className="w-full bg-gradient-to-r from-gold to-primary hover:scale-105 transition-all duration-300 text-lg py-6 rounded-full" size="lg">
+                      <Heart className="h-6 w-6 mr-2" />
+                      Unirme al Ministerio
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+                    <DialogHeader>
+                      <DialogTitle className="text-2xl md:text-3xl mb-4">Ministerio Manos de Amor</DialogTitle>
+                      <DialogDescription className="text-base md:text-lg leading-relaxed">
+                        Gracias por tu disposición a servir. El ministerio Manos de Amor abre sus puertas a quienes desean reflejar el amor de Cristo a través de acciones. Tu aporte, grande o pequeño, es una bendición que transforma vidas.
+                      </DialogDescription>
+                    </DialogHeader>
+                    
+                    <div className="mt-6 space-y-6">
+                      <div className="bg-gradient-to-br from-gold/10 to-primary/10 p-6 rounded-2xl border-2 border-gold/30">
+                        <h4 className="text-xl font-bold mb-4 text-gold flex items-center gap-2">
+                          <HandHeart className="h-6 w-6" />
+                          Artículos que Puedes Donar
+                        </h4>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Recibidos los domingos después del culto general:
+                        </p>
+                        <div className="grid sm:grid-cols-2 gap-3">
+                          {donationItems.map((item, idx) => (
+                            <div key={idx} className="flex items-center gap-3 bg-white p-3 rounded-xl border border-primary/20 hover:border-gold transition-all duration-300 hover:shadow-md">
+                              <div className="w-2 h-2 rounded-full bg-gold flex-shrink-0" />
+                              <span className="text-sm font-medium text-foreground">{item}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="bg-muted/50 p-6 rounded-2xl">
+                        <h4 className="font-bold text-lg mb-3 text-primary">Información Adicional</h4>
+                        <ul className="space-y-2 text-sm text-muted-foreground">
+                          <li className="flex items-start gap-2">
+                            <span className="text-primary font-bold">•</span>
+                            <span>Las donaciones se reciben después del culto general cada domingo</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-primary font-bold">•</span>
+                            <span>Puedes traer tus artículos a la entrada de la iglesia</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-primary font-bold">•</span>
+                            <span>Para más información, contacta a los líderes del ministerio</span>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <Button 
+                        onClick={() => {
+                          setOpenManosDialog(false);
+                          toast.success("¡Gracias por tu interés! Nos vemos el próximo domingo para recibir tu donación.");
+                        }}
+                        className="w-full bg-gradient-to-r from-gold to-primary hover:scale-105 transition-all duration-300 text-lg py-6 rounded-full"
+                      >
+                        Confirmar Participación
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </CardContent>
             </Card>
           </div>
 
-          <Card className="max-w-4xl mx-auto border-2 border-primary/20 dark:border-primary/30 bg-card dark:bg-card shadow-xl rounded-3xl">
+          <Card className="max-w-4xl mx-auto border-2 border-primary/20 bg-card shadow-xl rounded-3xl">
             <CardContent className="p-10 text-center">
               <p className="text-xl md:text-2xl italic text-muted-foreground mb-6 leading-relaxed">
                 "Cada uno dé como propuso en su corazón: no con tristeza, ni por necesidad, 
@@ -538,8 +688,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contáctanos - MEJORADO */}
-      <section id="contacto" className="py-32 bg-background dark:bg-background transition-colors duration-300">
+      {/* Contáctanos */}
+      <section id="contacto" className="py-32 bg-background transition-colors duration-300">
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-sky to-gold bg-clip-text text-transparent">
@@ -552,7 +702,7 @@ export default function Home() {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-            <Card className="border-2 border-primary/20 dark:border-primary/30 shadow-2xl rounded-3xl">
+            <Card className="border-2 border-primary/20 shadow-2xl rounded-3xl">
               <CardContent className="p-10">
                 <h3 className="text-3xl font-bold mb-8">Envíanos un Mensaje</h3>
                 <form className="space-y-6">
@@ -581,10 +731,10 @@ export default function Home() {
             </Card>
 
             <div className="space-y-6">
-              <Card className="border-2 border-border dark:border-primary/30 hover:shadow-xl hover:border-primary dark:hover:border-primary transition-all duration-300 rounded-2xl">
+              <Card className="border-2 border-border hover:shadow-xl hover:border-primary transition-all duration-300 rounded-2xl">
                 <CardContent className="p-8">
                   <div className="flex items-start gap-5">
-                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/10 to-sky/10 dark:from-primary/20 dark:to-sky/20 flex items-center justify-center flex-shrink-0">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/10 to-sky/10 flex items-center justify-center flex-shrink-0">
                       <Phone className="h-7 w-7 text-primary" />
                     </div>
                     <div>
@@ -598,10 +748,10 @@ export default function Home() {
                 </CardContent>
               </Card>
 
-              <Card className="border-2 border-border dark:border-primary/30 hover:shadow-xl hover:border-primary dark:hover:border-primary transition-all duration-300 rounded-2xl">
+              <Card className="border-2 border-border hover:shadow-xl hover:border-primary transition-all duration-300 rounded-2xl">
                 <CardContent className="p-8">
                   <div className="flex items-start gap-5">
-                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/10 to-sky/10 dark:from-primary/20 dark:to-sky/20 flex items-center justify-center flex-shrink-0">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/10 to-sky/10 flex items-center justify-center flex-shrink-0">
                       <Mail className="h-7 w-7 text-primary" />
                     </div>
                     <div>
@@ -615,10 +765,10 @@ export default function Home() {
                 </CardContent>
               </Card>
 
-              <Card className="border-2 border-border dark:border-primary/30 hover:shadow-xl hover:border-primary dark:hover:border-primary transition-all duration-300 rounded-2xl">
+              <Card className="border-2 border-border hover:shadow-xl hover:border-primary transition-all duration-300 rounded-2xl">
                 <CardContent className="p-8">
                   <div className="flex items-start gap-5">
-                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/10 to-sky/10 dark:from-primary/20 dark:to-sky/20 flex items-center justify-center flex-shrink-0">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/10 to-sky/10 flex items-center justify-center flex-shrink-0">
                       <Clock className="h-7 w-7 text-primary" />
                     </div>
                     <div>
@@ -632,17 +782,17 @@ export default function Home() {
                 </CardContent>
               </Card>
 
-              <Card className="border-2 border-primary/30 dark:border-primary/40 bg-gradient-to-br from-primary/5 to-sky/5 dark:from-primary/10 dark:to-sky/10 rounded-2xl">
+              <Card className="border-2 border-primary/30 bg-gradient-to-br from-primary/5 to-sky/5 rounded-2xl">
                 <CardContent className="p-8">
                   <h3 className="font-bold text-xl mb-6 text-center">Síguenos en Redes Sociales</h3>
                   <div className="flex justify-center gap-6">
-                    <Button size="lg" variant="outline" className="w-16 h-16 rounded-full p-0 hover:scale-110 hover:bg-primary hover:text-white dark:hover:bg-primary transition-all duration-300">
+                    <Button size="lg" variant="outline" className="w-16 h-16 rounded-full p-0 hover:scale-110 hover:bg-primary hover:text-white transition-all duration-300">
                       <Facebook className="h-7 w-7" />
                     </Button>
-                    <Button size="lg" variant="outline" className="w-16 h-16 rounded-full p-0 hover:scale-110 hover:bg-primary hover:text-white dark:hover:bg-primary transition-all duration-300">
+                    <Button size="lg" variant="outline" className="w-16 h-16 rounded-full p-0 hover:scale-110 hover:bg-primary hover:text-white transition-all duration-300">
                       <Instagram className="h-7 w-7" />
                     </Button>
-                    <Button size="lg" variant="outline" className="w-16 h-16 rounded-full p-0 hover:scale-110 hover:bg-primary hover:text-white dark:hover:bg-primary transition-all duration-300">
+                    <Button size="lg" variant="outline" className="w-16 h-16 rounded-full p-0 hover:scale-110 hover:bg-primary hover:text-white transition-all duration-300">
                       <Youtube className="h-7 w-7" />
                     </Button>
                   </div>
@@ -653,8 +803,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Visítanos - MEJORADO */}
-      <section id="visitanos" className="py-32 bg-muted/30 dark:bg-muted/10 transition-colors duration-300">
+      {/* Visítanos */}
+      <section id="visitanos" className="py-32 bg-muted/30 transition-colors duration-300">
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-gold to-primary bg-clip-text text-transparent">
@@ -667,10 +817,10 @@ export default function Home() {
           </div>
 
           <div className="max-w-5xl mx-auto space-y-10">
-            <Card className="border-2 border-primary/20 dark:border-primary/30 shadow-2xl rounded-3xl">
+            <Card className="border-2 border-primary/20 shadow-2xl rounded-3xl">
               <CardContent className="p-10">
                 <div className="flex items-start gap-5 mb-8">
-                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/10 to-sky/10 dark:from-primary/20 dark:to-sky/20 flex items-center justify-center flex-shrink-0">
+                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/10 to-sky/10 flex items-center justify-center flex-shrink-0">
                     <MapPin className="h-10 w-10 text-primary" />
                   </div>
                   <div>
@@ -684,7 +834,7 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-primary/20 dark:border-primary/30 shadow-2xl overflow-hidden rounded-3xl">
+            <Card className="border-2 border-primary/20 shadow-2xl overflow-hidden rounded-3xl">
               <CardContent className="p-0">
                 <div className="aspect-video w-full">
                   <iframe
@@ -702,9 +852,9 @@ export default function Home() {
             </Card>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <Card className="border-2 border-border dark:border-primary/30 hover:border-primary dark:hover:border-primary text-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 rounded-2xl">
+              <Card className="border-2 border-border hover:border-primary text-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 rounded-2xl">
                 <CardContent className="pt-12 pb-10">
-                  <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary/20 to-sky/20 dark:from-primary/30 dark:to-sky/30 flex items-center justify-center">
+                  <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary/20 to-sky/20 flex items-center justify-center">
                     <Heart className="h-10 w-10 text-primary" />
                   </div>
                   <h3 className="font-bold text-2xl mb-3">Todos Bienvenidos</h3>
@@ -714,9 +864,9 @@ export default function Home() {
                 </CardContent>
               </Card>
 
-              <Card className="border-2 border-border dark:border-primary/30 hover:border-sky dark:hover:border-sky text-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 rounded-2xl">
+              <Card className="border-2 border-border hover:border-sky text-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 rounded-2xl">
                 <CardContent className="pt-12 pb-10">
-                  <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-sky/20 to-gold/20 dark:from-sky/30 dark:to-gold/30 flex items-center justify-center">
+                  <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-sky/20 to-gold/20 flex items-center justify-center">
                     <Clock className="h-10 w-10 text-sky" />
                   </div>
                   <h3 className="font-bold text-2xl mb-3">Llega Temprano</h3>
@@ -726,9 +876,9 @@ export default function Home() {
                 </CardContent>
               </Card>
 
-              <Card className="border-2 border-border dark:border-primary/30 hover:border-gold dark:hover:border-gold text-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 rounded-2xl">
+              <Card className="border-2 border-border hover:border-gold text-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 rounded-2xl">
                 <CardContent className="pt-12 pb-10">
-                  <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-gold/20 to-primary/20 dark:from-gold/30 dark:to-primary/30 flex items-center justify-center">
+                  <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-gold/20 to-primary/20 flex items-center justify-center">
                     <Users className="h-10 w-10 text-gold" />
                   </div>
                   <h3 className="font-bold text-2xl mb-3">Familias</h3>

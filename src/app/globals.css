@@ -1,40 +1,5 @@
-/* Updated: 2025-11-20T06:23:47.152Z */
-/* Updated: 2025-11-20T03:25:21.391Z */
-/* Updated: 2025-11-19T23:46:30.609Z */
-/* Updated: 2025-11-19T23:22:07.334Z */
-/* Updated: 2025-11-19T21:40:49.771Z */
-/* Updated: 2025-11-19T21:30:17.841Z */
-/* Updated: 2025-11-19T21:16:44.944Z */
-/* Updated: 2025-11-19T18:21:04.483Z */
-/* Updated: 2025-11-19T18:20:01.531Z */
-/* Updated: 2025-11-19T18:18:45.552Z */
-/* Updated: 2025-11-18T21:19:46.811Z */
-/* Updated: 2025-11-18T21:13:26.961Z */
-/* Updated: 2025-11-18T20:25:26.976Z */
-/* Updated: 2025-11-18T20:20:25.369Z */
-/* Updated: 2025-11-18T20:19:39.367Z */
-/* Updated: 2025-11-03T00:09:06.796Z */
-/* Updated: 2025-11-01T07:20:33.565Z */
-/* Updated: 2025-11-01T06:50:09.792Z */
-/* Updated: 2025-11-01T06:31:54.494Z */
-/* Updated: 2025-11-01T06:18:26.687Z */
-/* Updated: 2025-11-01T02:16:18.379Z */
-/* Updated: 2025-11-01T02:10:56.640Z */
-/* Updated: 2025-10-31T23:58:14.663Z */
-/* Updated: 2025-10-31T23:56:48.237Z */
-/* Updated: 2025-10-31T23:50:45.878Z */
-/* Updated: 2025-10-31T23:50:25.373Z */
-/* Updated: 2025-10-31T23:39:17.611Z */
-/* Updated: 2025-10-31T23:36:09.894Z */
-/* Updated: 2025-10-31T23:31:58.548Z */
-/* Updated: 2025-10-31T23:30:45.431Z */
-/* Updated: 2025-10-31T23:29:25.850Z */
-/* Updated: 2025-10-31T23:09:11.864Z */
-/* Updated: 2025-10-31T23:08:32.420Z */
 @import "tailwindcss";
 @import "tw-animate-css";
-
-@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
@@ -119,50 +84,72 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.55 0.15 250);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.4 0.1 220);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --gold: oklch(0.65 0.12 80);
-  --gold-foreground: oklch(0.99 0 0);
-  --sky: oklch(0.65 0.1 220);
-  --sky-foreground: oklch(0.99 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-}
-
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring/50 transition-colors duration-300;
   }
+  
   body {
     @apply bg-background text-foreground;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Fade in up animation */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+  }
+
+  .animation-delay-100 {
+    animation-delay: 0.1s;
+    opacity: 0;
+  }
+
+  .animation-delay-200 {
+    animation-delay: 0.2s;
+    opacity: 0;
+  }
+
+  .animation-delay-300 {
+    animation-delay: 0.3s;
+    opacity: 0;
+  }
+
+  .animation-delay-400 {
+    animation-delay: 0.4s;
+    opacity: 0;
+  }
+
+  /* Scroll reveal effect */
+  @keyframes scroll-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Smooth transitions for theme switching */
+  * {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
   }
 }
 
